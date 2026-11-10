@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aprende a Comer Mejor · OG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Un solo mundo visual: negro OG con acento dorado; cada grupo de alimentos tiene su color. Layout: columna única móvil, secciones apiladas con navegación fija. */
+  --bg: #0b0b0c;
+  --panel: #151517;
+  --panel-2: #1d1d20;
+  --line: #2a2a2e;
+  --text: #f4f2ee;
+  --muted: #a3a09a;
+  --gold: #d4ad57;
+  --ok: #5fcf86;
+  --bad: #ef6b5f;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Poppins", system-ui, sans-serif;
+  --verduras: #4fbf74; --proteinas: #e2714f; --cereales: #e5b23e; --leguminosas: #b9975a;
+  --frutas: #f0607a; --lacteos: #6fa8dc; --grasas: #a5c94a; --azucares: #c58bd8; --libres: #8fb3bf;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 15px; line-height: 1.55; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 18px; }
+
+/* Nav */
+nav { position: sticky; top: 0; z-index: 10; background: rgba(11,11,12,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+nav a { flex-shrink: 0; text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); }
+nav a:hover { color: var(--text); border-color: var(--gold); }
+
+/* Hero */
+.hero { padding: 44px 0 30px; text-align: center; background: radial-gradient(ellipse at 50% 0%, #262626 0%, var(--bg) 70%); }
+.hero img { width: 150px; max-width: 50%; }
+.eyebrow { font-size: 11px; letter-spacing: 5px; color: var(--gold); font-weight: 600; margin-top: 22px; }
+h1 { font-family: var(--display); font-weight: 800; font-style: italic; font-size: clamp(44px, 11vw, 76px); line-height: .95; text-transform: uppercase; margin-top: 8px; text-wrap: balance; }
+h1 span { color: var(--gold); }
+.hero p { color: var(--muted); max-width: 46ch; margin: 14px auto 0; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 26px; text-align: left; }
+.step { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.step b { display: block; font-size: 14px; margin-top: 4px; }
+.step small { color: var(--muted); font-size: 12px; line-height: 1.4; display: block; margin-top: 3px; }
+.step .n { font-family: var(--display); font-weight: 800; font-size: 30px; color: var(--gold); line-height: 1; }
+@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+section { padding: 44px 0 10px; }
+.kicker { font-size: 11px; letter-spacing: 4px; color: var(--gold); font-weight: 600; text-transform: uppercase; }
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(32px, 7vw, 44px); line-height: 1; text-transform: uppercase; margin-top: 4px; text-wrap: balance; }
+.lead { color: var(--muted); margin-top: 8px; max-width: 62ch; }
+.hint { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; color: var(--gold); background: rgba(212,173,87,.1); border: 1px solid rgba(212,173,87,.3); border-radius: 20px; padding: 4px 11px; margin-top: 12px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-top: 16px; }
+
+/* Concepto de porción */
+.concept { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 8px; align-items: center; text-align: center; margin-top: 16px; }
+.concept .box { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px 8px; }
+.concept .big { font-size: 34px; line-height: 1.1; }
+.concept .lbl { font-size: 12.5px; font-weight: 600; margin-top: 6px; }
+.concept .sub { font-size: 11px; color: var(--muted); }
+.concept .eq { font-family: var(--display); font-weight: 800; font-size: 32px; color: var(--gold); }
+.hands { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+.hand { background: var(--panel-2); border-radius: 14px; padding: 14px 10px; text-align: center; }
+.hand svg { width: 54px; height: 54px; }
+.hand b { display: block; font-size: 14px; margin-top: 6px; }
+.hand span { font-size: 12px; color: var(--muted); display: block; line-height: 1.35; }
+@media (max-width: 560px) { .hands { grid-template-columns: repeat(2, 1fr); } .concept { grid-template-columns: 1fr; } }
+
+/* Grupos */
+.search { display: flex; gap: 8px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 4px 12px; margin-top: 16px; }
+.search input { flex: 1; background: none; border: 0; color: var(--text); font: inherit; padding: 10px 0; outline: none; }
+.search label { color: var(--muted); font-size: 13px; }
+#results { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.res { display: flex; justify-content: space-between; gap: 10px; align-items: center; background: var(--panel-2); border-radius: 10px; padding: 9px 12px; font-size: 14px; }
+.res em { font-style: normal; font-weight: 600; white-space: nowrap; }
+.chip { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; color: #111; white-space: nowrap; }
+.groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+.gbtn { text-align: left; background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 14px; padding: 13px; transition: transform .15s, background .15s; }
+.gbtn:hover { transform: translateY(-2px); }
+.gbtn[aria-pressed="true"] { background: var(--panel-2); border-color: var(--c); }
+.gbtn .ic { font-size: 26px; }
+.gbtn b { display: block; font-size: 14.5px; margin-top: 4px; color: var(--c); }
+.gbtn small { display: block; font-size: 12px; color: var(--muted); line-height: 1.35; margin-top: 2px; }
+#gdetail { border-top: 4px solid var(--c, var(--gold)); }
+#gdetail h3 { font-family: var(--display); font-weight: 800; font-size: 28px; text-transform: uppercase; color: var(--c); line-height: 1; }
+#gdetail p { color: var(--muted); font-size: 14px; margin-top: 6px; }
+.flist { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px; margin-top: 14px; }
+.sg { margin-top: 16px; }
+.subh { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.subh b { font-size: 14px; color: var(--c); }
+.subh span { font-size: 11.5px; color: var(--muted); }
+.fi { display: flex; justify-content: space-between; gap: 8px; background: var(--panel-2); border-radius: 9px; padding: 8px 11px; font-size: 13.5px; }
+.fi em { font-style: normal; font-weight: 600; color: var(--c); white-space: nowrap; }
+
+/* Plato */
+.plate-grid { display: grid; grid-template-columns: 260px 1fr; gap: 20px; align-items: center; }
+@media (max-width: 620px) { .plate-grid { grid-template-columns: 1fr; justify-items: center; } }
+#plate { width: 260px; max-width: 100%; }
+#plate .zone { transition: opacity .3s; }
+#plate text { font-family: var(--body); text-anchor: middle; }
+.picker { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+.prow b { font-size: 13px; display: flex; gap: 8px; align-items: center; }
+.prow b i { width: 10px; height: 10px; border-radius: 3px; background: var(--c); display: inline-block; }
+.opts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.opt { background: var(--panel-2); border: 1px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 13px; }
+.opt[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: #111; font-weight: 600; }
+#plateMsg { margin-top: 14px; border-radius: 12px; padding: 12px 14px; font-size: 14px; background: var(--panel-2); border-left: 4px solid var(--muted); }
+#plateMsg.done { border-left-color: var(--ok); }
+
+/* Día */
+.meals { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 16px; }
+.meal { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 6px; text-align: center; font-size: 12.5px; font-weight: 600; }
+.meal small { display: block; color: var(--muted); font-weight: 400; font-size: 11px; }
+.meal[aria-pressed="true"] { border-color: var(--gold); background: var(--panel-2); color: var(--gold); }
+@media (max-width: 560px) { .meals { grid-template-columns: repeat(3, 1fr); } }
+#mealDetail .dish { font-size: 15px; line-height: 1.6; }
+.mopts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; --c: var(--gold); }
+.dishbox { margin-top: 12px; background: var(--panel-2); border-left: 4px solid var(--gold); border-radius: 10px; padding: 12px 14px; }
+.dishbox b { font-size: 15px; }
+.dishbox .dish { font-size: 14.5px; margin-top: 4px; color: var(--text); }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tracker { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.trow { display: grid; grid-template-columns: 150px 1fr 44px; gap: 10px; align-items: center; }
+.trow .name { font-size: 13.5px; font-weight: 500; }
+.dots { display: flex; flex-wrap: wrap; gap: 7px; }
+.dot { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--c); background: transparent; transition: background .15s, transform .1s; }
+.dot.on { background: var(--c); }
+.dot:active { transform: scale(.9); }
+.trow .cnt { font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 480px) { .trow { grid-template-columns: 1fr 44px; } .trow .dots { grid-column: 1 / -1; grid-row: 2; } }
+.bar { height: 10px; background: var(--panel-2); border-radius: 10px; overflow: hidden; margin-top: 14px; }
+.bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), #f0d38a); width: 0; transition: width .3s; }
+.row-between { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; font-size: 13px; color: var(--muted); }
+.ghost { background: none; border: 1px solid var(--line); border-radius: 20px; padding: 5px 12px; font-size: 12.5px; color: var(--muted); }
+.ghost:hover { border-color: var(--gold); color: var(--text); }
+
+/* Intercambios */
+.swap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.tok { background: var(--panel-2); border: 1px solid var(--c); border-radius: 12px; padding: 8px 12px; font-size: 13.5px; }
+.tok small { display: block; color: var(--muted); font-size: 11px; }
+.eqs { color: var(--gold); font-family: var(--display); font-weight: 800; font-size: 24px; }
+.rules { display: grid; gap: 10px; margin-top: 16px; }
+.rule { display: flex; gap: 12px; align-items: flex-start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 14px; }
+.rule .mk { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; font-weight: 700; color: #111; }
+
+/* Hábitos */
+.habits { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; margin-top: 16px; }
+.hab { text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; position: relative; }
+.hab b { display: block; font-size: 14.5px; padding-right: 30px; }
+.hab small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.hab .ck { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-size: 13px; color: #111; }
+.hab[aria-pressed="true"] { border-color: var(--ok); }
+.hab[aria-pressed="true"] .ck { background: var(--ok); border-color: var(--ok); }
+
+/* Quiz */
+.q { margin-top: 14px; }
+.q > b { font-size: 15px; display: block; }
+.qopts { display: grid; gap: 6px; margin-top: 8px; }
+.qo { text-align: left; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 14px; }
+.qo.right { border-color: var(--ok); background: rgba(95,207,134,.12); }
+.qo.wrong { border-color: var(--bad); background: rgba(239,107,95,.12); }
+.qfb { font-size: 13px; margin-top: 6px; color: var(--muted); min-height: 1em; }
+#score { font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--gold); margin-top: 16px; }
+
+/* Súper */
+.shop { display: grid; gap: 8px; margin-top: 16px; }
+.shopg b { font-size: 13px; color: var(--c); }
+.items { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.item { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 6px 12px; font-size: 13px; }
+.item[aria-pressed="true"] { text-decoration: line-through; color: var(--muted); border-color: var(--c); }
+
+/* FAQ */
+details { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; margin-top: 8px; }
+summary { cursor: pointer; padding: 14px 16px; font-weight: 600; font-size: 14.5px; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--gold); font-size: 20px; line-height: 1; }
+details[open] summary::after { content: "–"; }
+details p { padding: 0 16px 14px; color: var(--muted); font-size: 14px; }
+
+.cta { display: inline-block; margin-top: 20px; background: var(--gold); color: #111; font-weight: 700; font-size: 14px; text-decoration: none; padding: 12px 22px; border-radius: 30px; border: 0; }
+.cta:hover { filter: brightness(1.08); }
+.cta.big { width: 100%; font-size: 15px; padding: 14px; margin-top: 16px; }
+.cta[disabled] { opacity: .5; cursor: wait; }
+nav a.navpdf { color: #111; background: var(--gold); border-color: var(--gold); font-weight: 600; }
+.plabel { font-size: 13px; font-weight: 600; display: block; }
+#pname { width: 100%; margin-top: 6px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; color: var(--text); font: inherit; padding: 11px 12px; }
+.pdfsum { margin-top: 14px; display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.pdfsum b { color: var(--text); font-weight: 600; }
+.pdfmsg { margin-top: 10px; font-size: 13px; color: var(--muted); min-height: 1.2em; }
+footer { margin: 50px 0 0; padding: 36px 0 44px; text-align: center; background: radial-gradient(ellipse at 50% 100%, #262626, var(--bg) 70%); border-top: 1px solid var(--line); }
+footer img { width: 90px; }
+footer h3 { font-family: var(--display); font-weight: 800; font-style: italic; font-size: 30px; color: var(--gold); text-transform: uppercase; margin-top: 12px; }
+footer p { color: var(--muted); font-size: 13.5px; max-width: 52ch; margin: 8px auto 0; }
+footer .sig { font-size: 11px; letter-spacing: 4px; color: #6f6c66; margin-top: 18px; }
+</style>
+</head>
+<body>
+
+<nav aria-label="Secciones"><div class="wrap">
+  <a href="#porcion">Qué es una porción</a><a href="#grupos">Grupos</a><a href="#plato">Arma tu plato</a><a href="#dia">Tu día</a><a href="#cambios">Intercambios</a><a href="#habitos">Hábitos</a><a href="#quiz">Pon a prueba</a><a href="#super">Súper</a><a href="#dudas">Dudas</a><a href="#pdf" class="navpdf">Descargar PDF</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <img src="data:image/png;base64,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" alt="OG">
+  <div class="eyebrow">GUÍA NUTRICIONAL</div>
+  <h1>Aprende a <span>comer mejor</span></h1>
+  <p>No necesitas dietas raras ni contar calorías. Solo aprender 3 cosas, y esta guía te las enseña paso a paso.</p>
+  <a href="#pdf" class="cta">Descargar mi guía en PDF</a>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><b>Qué es una porción</b><small>La medida de cada alimento, con tu mano y tus tazas.</small></div>
+    <div class="step"><div class="n">2</div><b>Arma tu plato</b><small>Mitad verduras, un cuarto de proteína y un cuarto de cereal.</small></div>
+    <div class="step"><div class="n">3</div><b>Sigue tu día</b><small>Cuántas porciones comer y en qué momento.</small></div>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<section id="porcion">
+  <div class="kicker">Paso 1</div>
+  <h2>¿Qué es una porción?</h2>
+  <p class="lead">Una porción (en el Sistema Mexicano de Alimentos Equivalentes, SMAE, se llama <b>equivalente</b>) es una cantidad fija de un alimento. Dentro de un mismo grupo, todos los equivalentes aportan casi la misma energía y nutrientes. Por eso puedes cambiar uno por otro.</p>
+  <div class="concept">
+    <div class="box"><div class="big">🫓</div><div class="lbl">1 tortilla de maíz</div><div class="sub">1 equivalente de cereal</div></div>
+    <div class="eq">=</div>
+    <div class="box"><div class="big">🍚</div><div class="lbl">½ taza de arroz</div><div class="sub">1 equivalente de cereal</div></div>
+    <div class="eq">=</div>
+    <div class="box"><div class="big">🥣</div><div class="lbl">⅓ taza de avena</div><div class="sub">1 equivalente de cereal</div></div>
+  </div>
+  <div class="card">
+    <b>¿No tienes tazas medidoras? Usa tu mano</b>
+    <p class="lead" style="margin-top:4px;font-size:13.5px">Son medidas aproximadas para cuando comes fuera o no tienes cómo medir.</p>
+    <div class="hands">
+      <div class="hand"><svg viewBox="0 0 60 60" aria-hidden="true"><rect x="14" y="16" width="32" height="30" rx="12" fill="#6fa8dc"/><rect x="14" y="10" width="8" height="14" rx="4" fill="#6fa8dc"/><rect x="22" y="9" width="8" height="12" rx="4" fill="#6fa8dc"/><rect x="30" y="9" width="8" height="12" rx="4" fill="#6fa8dc"/><rect x="38" y="11" width="8" height="12" rx="4" fill="#6fa8dc"/></svg><b>Puño</b><span>≈ 1 taza<br>(fruta, verduras, leche)</span></div>
+      <div class="hand"><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M10 30 Q30 52 50 30 Z" fill="#e5b23e"/><path d="M10 30 Q30 40 50 30" stroke="#0b0b0c" stroke-width="2" fill="none"/></svg><b>Mano ahuecada</b><span>≈ ½ taza<br>(arroz, frijoles)</span></div>
+      <div class="hand"><svg viewBox="0 0 60 60" aria-hidden="true"><rect x="16" y="14" width="28" height="34" rx="9" fill="#e2714f"/></svg><b>Palma de la mano</b><span>≈ 90 g de carne o pollo cocido<br>(3 equivalentes)</span></div>
+      <div class="hand"><svg viewBox="0 0 60 60" aria-hidden="true"><rect x="24" y="10" width="12" height="40" rx="6" fill="#a5c94a"/><line x1="24" y1="30" x2="36" y2="30" stroke="#0b0b0c" stroke-width="2"/></svg><b>Pulgar</b><span>≈ 1 cucharada<br>la punta ≈ 1 cucharadita (aceite)</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="grupos">
+  <div class="kicker">Los grupos del SMAE</div>
+  <h2>Qué come tu cuerpo</h2>
+  <p class="lead">Cada grupo hace un trabajo distinto, así que ninguno se elimina. Están organizados como el SMAE. Toca un grupo para ver sus alimentos, cuánto es 1 equivalente de cada uno y cuánto aporta.</p>
+  <div class="search"><label for="q">Buscar:</label><input id="q" type="search" placeholder="Escribe un alimento, por ejemplo: aguacate" autocomplete="off"></div>
+  <div id="results" aria-live="polite"></div>
+  <div class="groups" id="groups"></div>
+  <div class="card" id="gdetail"></div>
+</section>
+
+<section id="plato">
+  <div class="kicker">Paso 2</div>
+  <h2>Arma tu plato</h2>
+  <p class="lead">Así se ve una comida o cena balanceada. Elige un alimento de cada parte y mira cómo se llena tu plato. Hay más de 50 opciones para combinar.</p>
+  <div class="hint">Toca las opciones para elegir</div>
+  <div class="card">
+    <div class="plate-grid">
+      <svg id="plate" viewBox="0 0 260 260" role="img" aria-label="Plato dividido: mitad verduras, un cuarto proteína, un cuarto cereal">
+        <circle cx="130" cy="130" r="126" fill="#1d1d20"/>
+        <circle cx="130" cy="130" r="112" fill="#26262a" stroke="#3a3a40" stroke-width="2"/>
+        <path class="zone" id="zV" d="M130 130 L130 18 A112 112 0 0 0 130 242 Z" fill="#4fbf74" opacity=".2"/>
+        <path class="zone" id="zP" d="M130 130 L130 18 A112 112 0 0 1 242 130 Z" fill="#e2714f" opacity=".2"/>
+        <path class="zone" id="zC" d="M130 130 L242 130 A112 112 0 0 1 130 242 Z" fill="#e5b23e" opacity=".2"/>
+        <line x1="130" y1="18" x2="130" y2="242" stroke="#0b0b0c" stroke-width="4"/>
+        <line x1="130" y1="130" x2="242" y2="130" stroke="#0b0b0c" stroke-width="4"/>
+        <text x="72" y="118" font-size="30" fill="#fff" id="tV">½</text><text x="72" y="142" font-size="10" font-weight="700" fill="#fff" id="lV">VERDURAS</text>
+        <text x="182" y="76" font-size="24" fill="#fff" id="tP">¼</text><text x="182" y="98" font-size="9" font-weight="700" fill="#fff" id="lP">PROTEÍNA</text>
+        <text x="182" y="182" font-size="24" fill="#fff" id="tC">¼</text><text x="182" y="204" font-size="9" font-weight="700" fill="#fff" id="lC">CEREAL</text>
+        <circle cx="236" cy="236" r="18" fill="#a5c94a" opacity=".2" id="zG"/><text x="236" y="241" font-size="14" fill="#fff" id="tG">+</text>
+      </svg>
+      <div class="picker" id="picker"></div>
+    </div>
+    <div id="plateMsg">Elige una verdura, una proteína, un cereal y una grasa.</div>
+  </div>
+</section>
+
+<section id="dia">
+  <div class="kicker">Paso 3</div>
+  <h2>Tu día de comidas</h2>
+  <p class="lead">Haz 5 tiempos de comida. Toca cada uno para ver cuántas porciones lleva y elige entre varias ideas de menú. Todas las opciones de un mismo tiempo valen lo mismo.</p>
+  <div class="meals" id="meals"></div>
+  <div class="card" id="mealDetail"></div>
+
+  <div class="card">
+    <b>Mi registro de hoy</b>
+    <p class="lead" style="margin-top:4px;font-size:13.5px">Cada vez que comas una porción, toca un círculo. La meta es llenar todos al final del día.</p>
+    <div class="tracker" id="tracker"></div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="row-between"><span id="barTxt">0 de 28 porciones</span><button class="ghost" id="reset" type="button">Empezar de nuevo</button></div>
+  </div>
+  <p class="lead" style="font-size:13px">Estas cantidades son una referencia para un adulto con actividad ligera a moderada. Si eres hombre, entrenas varias veces por semana o te quedas con hambre, suele agregarse 1 o 2 porciones de cereal y de proteína. Tu nutriólogo las ajusta en tu valoración.</p>
+</section>
+
+<section id="cambios">
+  <div class="kicker">Varía tu menú</div>
+  <h2>Cambia sin miedo</h2>
+  <p class="lead">¿No te gusta algo del ejemplo? Cámbialo por otro alimento <b>del mismo grupo</b> (y de preferencia del mismo subgrupo del SMAE), equivalente por equivalente.</p>
+  <div class="card" style="--c:var(--proteinas)">
+    <b>Si te tocan 2 equivalentes de origen animal</b>
+    <div class="swap"><div class="tok">60 g de pollo</div><span class="eqs">=</span><div class="tok">4 claras</div><span class="eqs">=</span><div class="tok">⅔ lata de atún</div><span class="eqs">=</span><div class="tok">80 g de pescado</div></div>
+  </div>
+  <div class="card" style="--c:var(--cereales)">
+    <b>Si te tocan 2 equivalentes de cereal</b>
+    <div class="swap"><div class="tok">2 tortillas</div><span class="eqs">=</span><div class="tok">1 taza de arroz</div><span class="eqs">=</span><div class="tok">2 rebanadas de pan integral</div><span class="eqs">=</span><div class="tok">⅔ taza de avena</div></div>
+  </div>
+  <div class="rules">
+    <div class="rule"><span class="mk" style="background:var(--ok)">✓</span><div>Cambia dentro del mismo grupo: tortilla por arroz, pollo por atún, manzana por naranja. En origen animal, prefiere los de muy bajo y bajo aporte de grasa.</div></div>
+    <div class="rule"><span class="mk" style="background:var(--bad)">✕</span><div>No cambies entre grupos: una fruta no reemplaza una tortilla y el aguacate no reemplaza una proteína.</div></div>
+    <div class="rule"><span class="mk" style="background:var(--gold)">!</span><div>Las verduras verdes puedes comerlas con más libertad. El elote y la papa cuentan como cereal, no como verdura.</div></div>
+  </div>
+</section>
+
+<section id="habitos">
+  <div class="kicker">Más allá del plato</div>
+  <h2>10 hábitos que suman</h2>
+  <p class="lead">Marca los que ya haces. No tienes que lograrlos todos de golpe: empieza con 2 o 3 esta semana.</p>
+  <div class="habits" id="habits"></div>
+  <div class="row-between"><span id="habTxt"></span></div>
+</section>
+
+<section id="quiz">
+  <div class="kicker">¿Ya le entendiste?</div>
+  <h2>Pon a prueba lo que aprendiste</h2>
+  <div class="card" id="quizBox"></div>
+</section>
+
+<section id="super">
+  <div class="kicker">Para tu semana</div>
+  <h2>Lista del súper</h2>
+  <p class="lead">Lleva esta lista al súper y tacha lo que ya echaste al carrito.</p>
+  <div class="shop" id="shop"></div>
+</section>
+
+<section id="pdf">
+  <div class="kicker">Llévala contigo</div>
+  <h2>Tu guía en PDF</h2>
+  <p class="lead">Descarga tu guía personalizada para imprimirla o tenerla en tu teléfono. Incluye los menús que elegiste en "Tu día", tu plato, tus hábitos, lo que te falta del súper y la lista completa de equivalentes.</p>
+  <div class="card pdfcard">
+    <label for="pname" class="plabel">Tu nombre (opcional)</label>
+    <input id="pname" type="text" placeholder="Escribe tu nombre" autocomplete="name">
+    <div class="pdfsum" id="pdfSum"></div>
+    <button type="button" class="cta big" id="pdfBtn">Descargar mi guía en PDF</button>
+    <div class="pdfmsg" id="pdfMsg" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="dudas">
+  <div class="kicker">Dudas comunes</div>
+  <h2>Preguntas frecuentes</h2>
+  <details><summary>¿Tengo que pesar todo?</summary><p>Al principio conviene medir con tazas y cucharas. Después de unas semanas aprenderás a calcular a ojo o con tu mano.</p></details>
+  <details><summary>¿Puedo comer fuera de casa?</summary><p>Sí. Usa el método del plato: mitad verduras, un cuarto de proteína y un cuarto de cereal.</p></details>
+  <details><summary>¿Qué hago si me salto una comida?</summary><p>Sigue con la siguiente de forma normal. No la compenses comiendo el doble.</p></details>
+  <details><summary>¿Puedo mover las colaciones?</summary><p>Sí. Acomódalas según tu horario, siempre que no pasen más de 4 o 5 horas sin comer.</p></details>
+  <details><summary>¿Puedo comer algo que no está en la lista?</summary><p>De vez en cuando sí. Pregúntale a tu nutriólogo a qué grupo pertenece para saber cómo contarlo.</p></details>
+  <details><summary>¿Y si un día no sale perfecto?</summary><p>Es normal. Lo que cuenta es lo que haces la mayoría de los días. Vuelve al plan en tu siguiente comida.</p></details>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <img src="data:image/png;base64,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" alt="OG">
+  <h3>Tu plan, a tu medida</h3>
+  <p>Esta guía es una orientación general para aprender a comer mejor. No sustituye una valoración nutricional ni un plan personalizado. Para ajustar tus porciones a tu cuerpo, tu actividad y tus objetivos, agenda tu valoración.</p>
+  <p style="font-size:12px">Grupos y equivalentes basados en el Sistema Mexicano de Alimentos Equivalentes (SMAE), 5.ª edición.</p>
+  <div class="sig">OSCAR GARCÍA · NUTRICIÓN DEPORTIVA</div>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const GROUPS = [
+ {k:"verduras", n:"Verduras", ic:"🥦", why:"Fibra, vitaminas y minerales. Llenan mucho con muy poca energía.", s:[
+  {n:"Verduras", info:"1 equivalente: 25 kcal · 2 g proteína · 4 g hidratos de carbono", f:[["Acelga cruda","2 tazas"],["Espinaca cruda","2 tazas"],["Espinaca cocida","½ taza"],["Lechuga","3 tazas"],["Nopal cocido","1 taza"],["Brócoli cocido","½ taza"],["Calabacita cocida","½ taza"],["Chayote cocido","½ taza"],["Ejotes cocidos picados","½ taza"],["Champiñones cocidos","½ taza"],["Coliflor cocida","1 taza"],["Berenjena cocida picada","1 taza"],["Zanahoria picada","½ taza"],["Betabel crudo rallado","¼ taza"],["Calabaza de Castilla cocida","½ taza"],["Jitomate bola","1 pza"],["Tomate verde","5 pzas"],["Pepino rebanado","1 taza"],["Apio crudo","1½ tazas"],["Rábano rebanado","1 taza"],["Cebolla cruda rebanada","½ taza"],["Pimiento morrón cocido","½ taza"],["Espárragos","6 pzas"],["Salsa mexicana, roja o verde","½ taza"]]}]},
+ {k:"frutas", n:"Frutas", ic:"🍎", why:"Vitaminas, fibra y antioxidantes. El postre natural.", s:[
+  {n:"Frutas", info:"1 equivalente: 60 kcal · 15 g hidratos de carbono", f:[["Plátano","½ pza"],["Manzana chica","1 pza"],["Pera","½ pza"],["Naranja","1 pza"],["Mandarina reina","1 pza"],["Mango ataulfo","½ pza"],["Kiwi","1½ pzas"],["Guayaba","3 pzas"],["Durazno chico","2 pzas"],["Ciruela","3 pzas"],["Tuna","2 pzas"],["Fresas rebanadas","1 taza"],["Frambuesas o zarzamoras","1 taza"],["Papaya picada","1 taza"],["Melón picado","1 taza"],["Sandía picada","1 taza"],["Piña picada","¾ taza"],["Uvas","½ taza"],["Ciruela pasa","7 pzas"],["Jugo de naranja natural","½ taza"]]}]},
+ {k:"cereales", n:"Cereales y tubérculos", ic:"🌾", why:"Tu principal fuente de energía. Prefiere los integrales y los que no tienen grasa.", s:[
+  {n:"Sin grasa · elígelos casi siempre", info:"1 equivalente: 70 kcal · 2 g proteína · 15 g hidratos de carbono", f:[["Tortilla de maíz","1 pza"],["Arroz cocido (blanco o integral)","½ taza"],["Avena en hojuelas","⅓ taza"],["Avena cocida","¾ taza"],["Pasta cocida","½ taza"],["Pan de caja integral","1 rebanada"],["Bolillo sin migajón","½ pza"],["Pan árabe","½ pza"],["Tostada horneada","1 pza"],["Tortilla de harina light","1 pza"],["Papa cocida","½ pza"],["Camote","¼ pza"],["Elote desgranado","½ taza"],["Amaranto tostado","¼ taza"],["Cereal de caja sin azúcar","½ taza"],["Palomitas naturales","3 tazas"],["Galletas María","5 pzas"],["Galletas saladas","4 pzas"]]},
+  {n:"Con grasa · solo de vez en cuando", info:"1 equivalente: 115 kcal · 2 g proteína · 5 g lípidos · 15 g hidratos de carbono", f:[["Tostada frita","1 pza"],["Tamal","¼ pza"],["Palomitas con mantequilla","1 taza"],["Waffle","1 pza"]]}]},
+ {k:"leguminosas", n:"Leguminosas", ic:"🫘", why:"Proteína vegetal, fibra y hierro. Llenadoras y económicas.", s:[
+  {n:"Leguminosas", info:"1 equivalente: 120 kcal · 8 g proteína · 1 g lípidos · 20 g hidratos de carbono", f:[["Frijoles cocidos (negros, bayos, canarios)","½ taza"],["Lentejas cocidas","½ taza"],["Garbanzos cocidos","½ taza"],["Habas cocidas","½ taza"],["Alubias cocidas","½ taza"],["Alverjón cocido","½ taza"],["Soya cocida","⅓ taza"],["Soya texturizada seca","35 g"]]}]},
+ {k:"proteinas", n:"Origen animal", ic:"🍗", why:"Carne, pescado, huevo y quesos: construyen y reparan tus músculos.", s:[
+  {n:"Muy bajo aporte de grasa · tus favoritos", info:"1 equivalente: 40 kcal · 7 g proteína · 1 g lípidos", f:[["Pechuga de pollo cocida","30 g"],["Carne molida de pollo o pavo","30 g"],["Pechuga de pavo","2 rebanadas"],["Bistec de res","30 g"],["Filete de pescado (tilapia, mojarra, merluza)","40 g"],["Atún en agua drenado","⅓ de lata"],["Camarón cocido","5 pzas"],["Claras de huevo","2 pzas"],["Queso cottage","3 cdas"],["Requesón","3 cdas"]]},
+  {n:"Bajo aporte de grasa", info:"1 equivalente: 55 kcal · 7 g proteína · 3 g lípidos", f:[["Queso panela","40 g"],["Queso fresco","40 g"],["Salmón","30 g"],["Lomo de cerdo","40 g"],["Molida de res (sirloin)","30 g"],["Arrachera","30 g"],["Jamón de pavo","2 rebanadas"],["Atún en aceite drenado","30 g"]]},
+  {n:"Moderado aporte de grasa", info:"1 equivalente: 75 kcal · 7 g proteína · 5 g lípidos", f:[["Huevo entero","1 pza"],["Queso mozzarella","30 g"],["Sardina en tomate","1 pza"],["Salchicha de pavo","1 pza"]]},
+  {n:"Alto aporte de grasa · solo de vez en cuando", info:"1 equivalente: 100 kcal · 7 g proteína · 8 g lípidos", f:[["Queso Oaxaca","30 g"],["Queso manchego","25 g"],["Queso chihuahua","25 g"],["Queso amarillo","2 rebanadas"],["Pollo rostizado","50 g"]]}]},
+ {k:"lacteos", n:"Leche", ic:"🥛", why:"Calcio para tus huesos y proteína. Prefiere la descremada.", s:[
+  {n:"Descremada · la mejor opción", info:"1 equivalente: 95 kcal · 9 g proteína · 2 g lípidos · 12 g hidratos de carbono", f:[["Leche descremada","1 taza"],["Yogur natural light","¾ taza"],["Leche evaporada descremada","½ taza"],["Leche en polvo descremada","4 cdas"]]},
+  {n:"Semidescremada", info:"1 equivalente: 110 kcal · 9 g proteína · 4 g lípidos · 12 g hidratos de carbono", f:[["Leche semidescremada","1 taza"]]},
+  {n:"Entera", info:"1 equivalente: 150 kcal · 9 g proteína · 8 g lípidos · 12 g hidratos de carbono", f:[["Leche entera","1 taza"],["Yogur natural entero","1 taza"]]},
+  {n:"Con azúcar · evítala", info:"1 equivalente: 200 kcal · 8 g proteína · 5 g lípidos · 30 g hidratos de carbono", f:[["Leches de sabor y yogures endulzados","Mejor evitarlos"]]}]},
+ {k:"grasas", n:"Aceites y grasas", ic:"🥑", why:"Ayudan a absorber vitaminas. Poquita cantidad rinde mucho.", s:[
+  {n:"Sin proteína", info:"1 equivalente: 45 kcal · 5 g lípidos", f:[["Aguacate","⅓ pza"],["Guacamole","2 cdas"],["Aceite de oliva, canola o aguacate","1 cdita"],["Aceitunas","6 pzas"],["Mayonesa","1 cdita"],["Mantequilla","1 cdita"],["Crema","1 cda"],["Queso crema","1 cda"],["Tocino","1 rebanada"]]},
+  {n:"Con proteína", info:"1 equivalente: 70 kcal · 3 g proteína · 5 g lípidos · 3 g hidratos de carbono", f:[["Almendras","10 pzas"],["Cacahuates","14 pzas"],["Nuez","3 pzas"],["Nuez de la India","7 pzas"],["Pistaches","18 pzas"],["Avellanas","9 pzas"],["Pepitas sin cáscara","1 cda"],["Ajonjolí","4 cditas"],["Chía","1 cda"],["Crema de cacahuate","2 cditas"]]}]},
+ {k:"azucares", n:"Azúcares", ic:"🍯", why:"No son necesarios. Úsalos poco y de vez en cuando.", s:[
+  {n:"Sin grasa", info:"1 equivalente: 40 kcal · 10 g hidratos de carbono", f:[["Azúcar blanca o morena","2½ cditas"],["Miel","2 cditas"],["Mermelada","2½ cditas"],["Gelatina preparada con agua","⅓ taza"],["Jugo de fruta industrializado","⅓ taza"],["Refresco","¼ de lata"],["Salsa cátsup","2 cdas"]]},
+  {n:"Con grasa", info:"1 equivalente: 85 kcal · 5 g lípidos · 10 g hidratos de carbono", f:[["Helado de leche","⅓ taza"],["Mole","1 cda"],["Palanqueta","⅓ pza"]]}]},
+ {k:"libres", n:"Libres de energía", ic:"💧", why:"Casi no aportan calorías. Úsalos para dar sabor.", s:[
+  {n:"Libres", info:"Puedes usarlos sin contarlos", f:[["Agua natural o mineral","Libre"],["Café y té sin azúcar","Libre"],["Limón","Libre"],["Vinagre y mostaza","Libre"],["Especias y hierbas","Libre"],["Chile en polvo","Libre"],["Gelatina light","Libre"],["Endulzantes sin calorías","Con moderación"]]}]}
+];
+const G = Object.fromEntries(GROUPS.map(g => [g.k, g]));
+const col = k => `var(--${k})`;
+const chip = k => `<span class="chip" style="background:${col(k)}">${G[k].n}</span>`;
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+
+/* Grupos */
+const gwrap = document.getElementById("groups"), gdet = document.getElementById("gdetail");
+function showGroup(k) {
+  const g = G[k];
+  gdet.style.setProperty("--c", col(k));
+  gdet.innerHTML = `<h3>${g.ic} ${g.n}</h3><p>${g.why}</p>${g.s.map(sg => `<div class="sg"><div class="subh"><b>${sg.n}</b><span>${sg.info}</span></div><div class="flist">${sg.f.map(([a, b]) => `<div class="fi"><span>${a}</span><em>${b}</em></div>`).join("")}</div></div>`).join("")}`;
+  gwrap.querySelectorAll(".gbtn").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k));
+}
+gwrap.innerHTML = GROUPS.map(g => `<button type="button" class="gbtn" data-k="${g.k}" style="--c:${col(g.k)}" aria-pressed="false"><span class="ic">${g.ic}</span><b>${g.n}</b><small>${g.why.split(".")[0]}.</small></button>`).join("");
+gwrap.addEventListener("click", e => { const b = e.target.closest(".gbtn"); if (b) showGroup(b.dataset.k); });
+showGroup("verduras");
+
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+document.getElementById("q").addEventListener("input", e => {
+  const t = norm(e.target.value.trim()), out = document.getElementById("results");
+  if (t.length < 2) { out.innerHTML = ""; return; }
+  const hits = [];
+  GROUPS.forEach(g => g.s.forEach(sg => sg.f.forEach(([a, b]) => { if (norm(a).includes(t)) hits.push(`<div class="res"><span>${a} ${chip(g.k)}</span><em>1 eq. = ${b}</em></div>`); })));
+  out.innerHTML = hits.length ? hits.slice(0, 8).join("") : `<div class="res"><span>No está en esta lista. Pregúntale a tu nutriólogo a qué grupo pertenece.</span></div>`;
+});
+
+/* Plato */
+const PLATE = [
+  {k:"verduras", z:"V", label:"Mitad del plato: verduras", o:["Ensalada de lechuga","Espinacas","Nopales","Brócoli","Calabacitas","Chayote","Ejotes","Coliflor","Champiñones","Pepino","Espárragos","Pimiento morrón","Berenjena","Zanahoria","Jitomate","Betabel"]},
+  {k:"proteinas", z:"P", label:"Un cuarto: origen animal", o:["Pollo","Pavo","Pescado blanco","Salmón","Atún","Camarones","Huevo","Claras","Res magra","Cerdo magro","Sardinas","Queso panela","Queso cottage"]},
+  {k:"cereales", z:"C", label:"Un cuarto: cereal o leguminosa", o:["Arroz","Tortillas","Tostadas horneadas","Papa","Camote","Pasta","Pan integral","Elote","Frijoles","Lentejas","Garbanzos","Habas","Alverjón"]},
+  {k:"grasas", z:"G", label:"Un toque: aceite o grasa", o:["Aguacate","Aceite de oliva","Aceite de canola","Aceitunas","Almendras","Nueces","Pistaches","Cacahuates","Pepitas","Chía"]}
+];
+const chosen = {};
+const picker = document.getElementById("picker");
+picker.innerHTML = PLATE.map((p, i) => `<div class="prow" style="--c:${col(p.k)}"><b><i></i>${p.label}</b><div class="opts">${p.o.map(o => `<button type="button" class="opt" data-i="${i}" aria-pressed="false">${o}</button>`).join("")}</div></div>`).join("");
+picker.addEventListener("click", e => {
+  const b = e.target.closest(".opt"); if (!b) return;
+  const i = +b.dataset.i, p = PLATE[i];
+  b.parentElement.querySelectorAll(".opt").forEach(x => x.setAttribute("aria-pressed", x === b));
+  chosen[p.z] = b.textContent;
+  document.getElementById("z" + p.z).setAttribute("opacity", "1");
+  const lbl = document.getElementById("l" + p.z);
+  if (lbl) lbl.textContent = b.textContent.toUpperCase().slice(0, 16);
+  const n = Object.keys(chosen).length, msg = document.getElementById("plateMsg");
+  if (n === 4) { msg.className = "done"; msg.innerHTML = `<b>¡Plato balanceado!</b> ${chosen.V} + ${chosen.P} + ${chosen.C} + ${chosen.G.toLowerCase()}. Acompáñalo con agua natural y deja la fruta para el postre.`; }
+  else msg.textContent = `Vas bien: te ${4 - n === 1 ? "falta 1 parte" : `faltan ${4 - n} partes`} del plato.`;
+});
+
+/* Día */
+const ORDER = ["verduras","frutas","cereales","leguminosas","proteinas","lacteos","grasas"];
+const MEALS = [
+  {n:"Desayuno", t:"7–9 am", p:{verduras:1,frutas:1,cereales:2,proteinas:2,lacteos:1,grasas:1}, o:[
+    ["Huevos a la mexicana","2 huevos a la mexicana con 1 jitomate y cebolla, 2 tortillas de maíz, ⅓ de aguacate, 1 taza de papaya picada y 1 taza de leche descremada (sola o en café)."],
+    ["Avena con claras","4 claras revueltas con ½ taza de espinaca cocida. ⅔ taza de avena en hojuelas cocida en 1 taza de leche descremada, con ½ plátano y 1 cda de chía."],
+    ["Sincronizadas de pavo","2 tortillas de maíz con 2 rebanadas de pechuga de pavo y 40 g de queso panela, ½ taza de pimiento asado, ⅓ de aguacate, 1 taza de melón picado y 1 taza de leche descremada."],
+    ["Pan con huevo y aguacate","2 rebanadas de pan de caja integral con ⅓ de aguacate y 2 huevos estrellados, 1 jitomate en rodajas, 1 taza de fresas y 1 taza de leche descremada."],
+    ["Chilaquiles horneados","2 tostadas horneadas en trozos con ½ taza de salsa verde y 60 g de pollo deshebrado, ⅓ de aguacate, 1 taza de papaya picada y 1 taza de café con leche descremada."]]},
+  {n:"Colación", t:"11 am", p:{frutas:1,grasas:1}, o:[
+    ["Manzana y almendras","1 manzana chica y 10 almendras."],
+    ["Fresas con crema de cacahuate","1 taza de fresas con 2 cditas de crema de cacahuate."],
+    ["Naranja y nueces","1 naranja y 3 nueces."],
+    ["Papaya con chía","1 taza de papaya picada con 1 cda de chía."],
+    ["Uvas y pistaches","½ taza de uvas y 18 pistaches."],
+    ["Guayabas y cacahuates","3 guayabas y 14 cacahuates."]]},
+  {n:"Comida", t:"2–3 pm", p:{verduras:2,cereales:2,leguminosas:1,proteinas:3,grasas:1}, o:[
+    ["Pollo a la plancha","90 g de pechuga de pollo a la plancha, 1 taza de arroz, ½ taza de frijoles y ensalada de 3 tazas de lechuga con ½ taza de brócoli cocido y 1 cdita de aceite de oliva."],
+    ["Tacos de pescado","120 g de filete de tilapia a la plancha en 2 tortillas de maíz, con ½ taza de salsa mexicana, 1 taza de pepino, ⅓ de aguacate y ½ taza de frijoles de la olla."],
+    ["Bistec con nopales","90 g de bistec de res asado, ½ papa cocida y 1 tortilla de maíz, 1 taza de nopales y ½ taza de calabacita cocida con 1 cdita de aceite, y ½ taza de frijoles."],
+    ["Cerdo en salsa con lentejas","120 g de lomo de cerdo en salsa de jitomate, ½ taza de lentejas con ½ taza de zanahoria, ½ taza de ejotes, 1 taza de arroz y ⅓ de aguacate."],
+    ["Pasta con pollo","1 taza de pasta cocida con 90 g de pollo, ½ taza de brócoli y ½ taza de champiñones cocidos salteados con 1 cdita de aceite de oliva, más ½ taza de garbanzos."],
+    ["Bowl de atún","1 lata de atún en agua drenado, 1 taza de arroz, ½ taza de frijoles negros, 1 taza de pepino y 1 jitomate picados, con 6 aceitunas."]]},
+  {n:"Colación", t:"5–6 pm", p:{frutas:1,lacteos:1}, o:[
+    ["Yogur con fresas","¾ taza de yogur natural light con 1 taza de fresas."],
+    ["Licuado de plátano","1 taza de leche descremada licuada con ½ plátano y canela."],
+    ["Licuado de papaya","1 taza de leche descremada licuada con 1 taza de papaya."],
+    ["Yogur con frutos rojos","¾ taza de yogur natural light con 1 taza de frambuesas o zarzamoras."],
+    ["Café con leche y manzana","1 taza de café con leche descremada y 1 manzana chica."]]},
+  {n:"Cena", t:"8–9 pm", p:{verduras:2,cereales:2,proteinas:2,grasas:1}, o:[
+    ["Tostadas de atún","⅔ de lata de atún en agua con 1 taza de pepino, 1 jitomate y 6 aceitunas, sobre 2 tostadas horneadas."],
+    ["Tacos de pollo","60 g de pollo deshebrado en 2 tortillas de maíz, con 3 tazas de lechuga, ½ taza de pico de gallo y ⅓ de aguacate."],
+    ["Omelette de verduras","Omelette de 2 huevos con ½ taza de champiñones y ½ taza de espinaca cocidos en 1 cdita de aceite, con 2 rebanadas de pan de caja integral."],
+    ["Wraps de pavo","2 tortillas de harina light con 4 rebanadas de pechuga de pavo, 3 tazas de lechuga, 1 taza de pepino en tiras y 1 cda de pepitas."],
+    ["Salmón con arroz","60 g de salmón al horno con 6 espárragos y ½ taza de calabacita asados con 1 cdita de aceite de oliva, y 1 taza de arroz."]]}
+];
+const TOTAL = {}; ORDER.forEach(k => TOTAL[k] = MEALS.reduce((s, m) => s + (m.p[k] || 0), 0));
+const mealsEl = document.getElementById("meals"), md = document.getElementById("mealDetail");
+mealsEl.innerHTML = MEALS.map((m, i) => `<button type="button" class="meal" data-i="${i}" aria-pressed="false">${m.n}<small>${m.t}</small></button>`).join("");
+let optSel = store.get("og-menu", MEALS.map(() => 0)); if (!Array.isArray(optSel) || optSel.length !== MEALS.length) optSel = MEALS.map(() => 0);
+function showMeal(i) {
+  const m = MEALS[i], j = optSel[i], [name, desc] = m.o[j];
+  mealsEl.querySelectorAll(".meal").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i));
+  md.dataset.i = i;
+  md.innerHTML = `<div class="kicker">${m.n} · ${m.t}</div><div class="pills">${ORDER.filter(k => m.p[k]).map(k => `<span class="chip" style="background:${col(k)}">${m.p[k]} ${G[k].n.toLowerCase()}</span>`).join("")}</div>
+  <div class="mopts">${m.o.map((x, k) => `<button type="button" class="opt mo" data-j="${k}" aria-pressed="${k === j}">${x[0]}</button>`).join("")}</div>
+  <div class="dishbox"><b>${name}</b><p class="dish">${desc}</p></div>
+  <div class="row-between"><span>Opción ${j + 1} de ${m.o.length}. Todas llevan las mismas porciones.</span><button type="button" class="ghost" id="nextOpt">Otra idea →</button></div>`;
+}
+md.addEventListener("click", e => {
+  const i = +md.dataset.i;
+  const b = e.target.closest(".mo");
+  if (b) { optSel[i] = +b.dataset.j; store.set("og-menu", optSel); showMeal(i); renderPdfSum(); return; }
+  if (e.target.closest("#nextOpt")) { optSel[i] = (optSel[i] + 1) % MEALS[i].o.length; store.set("og-menu", optSel); showMeal(i); renderPdfSum(); }
+});
+mealsEl.addEventListener("click", e => { const b = e.target.closest(".meal"); if (b) showMeal(+b.dataset.i); });
+showMeal(0);
+
+const today = new Date().toISOString().slice(0, 10);
+let track = store.get("og-track", {});
+if (track.day !== today) track = { day: today, v: {} };
+const tr = document.getElementById("tracker"), ALL = Object.values(TOTAL).reduce((a, b) => a + b, 0);
+function renderTrack() {
+  tr.innerHTML = ORDER.map(k => { const done = track.v[k] || 0; return `<div class="trow" style="--c:${col(k)}"><span class="name">${G[k].ic} ${G[k].n}</span><div class="dots">${Array.from({length: TOTAL[k]}, (_, i) => `<button type="button" class="dot ${i < done ? "on" : ""}" data-k="${k}" data-i="${i}" aria-label="${G[k].n}: porción ${i + 1}"></button>`).join("")}</div><span class="cnt">${done}/${TOTAL[k]}</span></div>`; }).join("");
+  const sum = ORDER.reduce((s, k) => s + (track.v[k] || 0), 0);
+  document.getElementById("barFill").style.width = (sum / ALL * 100) + "%";
+  document.getElementById("barTxt").textContent = sum === ALL ? `¡Completaste tus ${ALL} porciones de hoy!` : `${sum} de ${ALL} porciones`;
+}
+tr.addEventListener("click", e => {
+  const b = e.target.closest(".dot"); if (!b) return;
+  const k = b.dataset.k, i = +b.dataset.i, cur = track.v[k] || 0;
+  track.v[k] = (i + 1 === cur) ? i : i + 1;
+  store.set("og-track", track); renderTrack();
+});
+document.getElementById("reset").addEventListener("click", () => { track = { day: today, v: {} }; store.set("og-track", track); renderTrack(); });
+renderTrack();
+
+/* Hábitos */
+const HABITS = [["💧 Agua","Alrededor de 2 litros al día, más si haces ejercicio o hace calor."],["⏰ Horarios","3 comidas y 1 o 2 colaciones. No pases más de 4 o 5 horas sin comer."],["🐢 Come despacio","Unos 20 minutos por comida y sin pantallas."],["🍳 Cocina mejor","Plancha, horno o vapor. Mide el aceite con cucharita."],["🚫 Menos ultraprocesados","Reduce pan dulce, galletas, frituras, embutidos y comida rápida."],["🏷️ Lee etiquetas","Elige productos sin sellos de advertencia o con los menos posibles."],["🍬 Azúcar y alcohol","Endulza poco y deja el alcohol para ocasiones especiales."],["📝 Planea","Haz tu lista del súper y deja comidas listas para días ocupados."],["😴 Descansa","Dormir de 7 a 9 horas ayuda a controlar el hambre."],["🔁 Constancia","Si una comida no sale como querías, vuelve al plan en la siguiente."]];
+let hab = store.get("og-hab", []);
+const hwrap = document.getElementById("habits");
+function renderHab() {
+  hwrap.innerHTML = HABITS.map(([t, d], i) => `<button type="button" class="hab" data-i="${i}" aria-pressed="${hab.includes(i)}"><span class="ck">${hab.includes(i) ? "✓" : ""}</span><b>${t}</b><small>${d}</small></button>`).join("");
+  document.getElementById("habTxt").textContent = `Ya haces ${hab.length} de 10 hábitos.` + (hab.length >= 7 ? " ¡Excelente base!" : hab.length >= 3 ? " Vas por buen camino." : "");
+}
+hwrap.addEventListener("click", e => { const b = e.target.closest(".hab"); if (!b) return; const i = +b.dataset.i; hab = hab.includes(i) ? hab.filter(x => x !== i) : [...hab, i]; store.set("og-hab", hab); renderHab(); renderPdfSum(); });
+renderHab();
+
+/* Quiz */
+const QUIZ = [
+  {q:"¿Qué debe ocupar la mitad de tu plato?", o:["Arroz o tortillas","Verduras","Carne"], a:1, e:"Las verduras van en la mitad del plato: llenan mucho con poca energía."},
+  {q:"Te tocan 2 porciones de cereal. ¿Cuál opción es correcta?", o:["2 tortillas de maíz","2 manzanas","2 huevos"], a:0, e:"1 tortilla = 1 porción de cereal. La manzana es fruta y el huevo es proteína."},
+  {q:"¿Puedo cambiar 1 manzana por 1 tortilla?", o:["Sí, las dos son 1 porción","No, son de grupos distintos"], a:1, e:"Solo se intercambian alimentos del mismo grupo."},
+  {q:"¿Cuánto es 1 equivalente de aguacate?", o:["Un aguacate entero","1/3 de aguacate","1/2 aguacate"], a:1, e:"En el SMAE, 1 equivalente de aguacate es 1/3 de pieza."},
+  {q:"Te saltaste la comida. ¿Qué haces en la cena?", o:["Como el doble para compensar","Ceno normal, según mi plan"], a:1, e:"No compenses comiendo el doble. Sigue con tu plan normal."}
+];
+const qb = document.getElementById("quizBox"); let answered = {}, right = 0;
+qb.innerHTML = QUIZ.map((x, i) => `<div class="q"><b>${i + 1}. ${x.q}</b><div class="qopts">${x.o.map((o, j) => `<button type="button" class="qo" data-q="${i}" data-j="${j}">${o}</button>`).join("")}</div><div class="qfb" id="fb${i}"></div></div>`).join("") + `<div id="score"></div>`;
+qb.addEventListener("click", e => {
+  const b = e.target.closest(".qo"); if (!b) return;
+  const i = +b.dataset.q, j = +b.dataset.j; if (answered[i] !== undefined) return;
+  answered[i] = j; const ok = j === QUIZ[i].a; if (ok) right++;
+  b.classList.add(ok ? "right" : "wrong");
+  if (!ok) qb.querySelector(`.qo[data-q="${i}"][data-j="${QUIZ[i].a}"]`).classList.add("right");
+  document.getElementById("fb" + i).textContent = (ok ? "¡Correcto! " : "Casi. ") + QUIZ[i].e;
+  if (Object.keys(answered).length === QUIZ.length) document.getElementById("score").textContent = `Tu resultado: ${right} de ${QUIZ.length}` + (right === QUIZ.length ? " · ¡Lo dominas!" : " · Repasa las secciones y vuelve a intentarlo");
+});
+
+/* Súper */
+const SHOP = {verduras:["Lechuga","Espinaca","Brócoli","Calabacita","Pepino","Jitomate","Cebolla","Zanahoria"], proteinas:["Huevo","Pechuga de pollo","Atún en agua","Pescado blanco","Res magra"], cereales:["Tortilla de maíz","Arroz","Avena","Pan integral","Papa","Camote"], leguminosas:["Frijoles","Lentejas","Garbanzos"], frutas:["Manzana","Plátano","Papaya","Fresas","Naranja","Guayaba"], lacteos:["Leche descremada","Yogur natural light","Queso panela"], grasas:["Aguacate","Aceite de oliva","Almendras","Nueces","Chía"]};
+let shop = store.get("og-shop", []);
+const sw = document.getElementById("shop");
+function renderShop() {
+  sw.innerHTML = ORDER.map(k => `<div class="shopg" style="--c:${col(k)}"><b>${G[k].ic} ${G[k].n}</b><div class="items">${SHOP[k].map(it => `<button type="button" class="item" data-it="${it}" aria-pressed="${shop.includes(it)}">${it}</button>`).join("")}</div></div>`).join("");
+}
+sw.addEventListener("click", e => { const b = e.target.closest(".item"); if (!b) return; const it = b.dataset.it; shop = shop.includes(it) ? shop.filter(x => x !== it) : [...shop, it]; store.set("og-shop", shop); renderShop(); renderPdfSum(); });
+renderShop();
+
+/* PDF */
+function renderPdfSum() {
+  const el = document.getElementById("pdfSum"); if (!el) return;
+  const menus = MEALS.map((m, i) => m.o[optSel[i]][0]).join(" · ");
+  const pend = ORDER.reduce((n, k) => n + SHOP[k].filter(x => !shop.includes(x)).length, 0);
+  el.innerHTML = `<div><b>Tu menú:</b> ${menus}</div><div><b>Hábitos que ya haces:</b> ${hab.length} de 10</div><div><b>Pendientes del súper:</b> ${pend} productos</div>`;
+}
+renderPdfSum();
+
+const clean = t => String(t)
+  .replace(/⅓/g, "1/3").replace(/⅔/g, "2/3").replace(/≈\s?/g, "aprox. ").replace(/→/g, "")
+  .replace(/✓/g, "").replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, "").replace(/\s+/g, " ").trim();
+const RGB = {verduras:[63,160,96], frutas:[214,72,98], cereales:[200,148,40], leguminosas:[150,118,62], proteinas:[206,96,64], lacteos:[78,138,196], grasas:[124,160,48], azucares:[160,100,190], libres:[96,140,156]};
+const GOLD = [196,156,72];
+
+function buildPdf(name) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "mm", format: "letter" });
+  const W = 215.9, H = 279.4, M = 16, CW = W - 2 * M;
+  let y = 0, page = 1;
+  const logo = document.querySelector(".hero img").src;
+  const foot = () => { doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(150); doc.text("OSCAR GARCÍA · NUTRICIÓN DEPORTIVA", M, H - 9); doc.text("Página " + page, W - M, H - 9, { align: "right" }); };
+  const newPage = () => { foot(); doc.addPage(); page++; doc.setFillColor(12, 12, 13); doc.rect(0, 0, W, 14, "F"); try { doc.addImage(logo, "PNG", M, 3.5, 21, 7); } catch (e) {} doc.setFont("helvetica", "bold"); doc.setFontSize(7.5); doc.setTextColor(...GOLD); doc.text("GUÍA NUTRICIONAL", W - M, 9, { align: "right" }); y = 24; };
+  const need = h => { if (y + h > H - 16) newPage(); };
+  const h2 = (t, c = [17, 17, 17]) => { need(16); doc.setFont("helvetica", "bold"); doc.setFontSize(15); doc.setTextColor(...c); doc.text(clean(t).toUpperCase(), M, y); doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.line(M, y + 2, M + 18, y + 2); y += 9; };
+  const para = (t, size = 10, color = 70, style = "normal", indent = 0) => { doc.setFont("helvetica", style); doc.setFontSize(size); doc.setTextColor(color); const lines = doc.splitTextToSize(clean(t), CW - indent); lines.forEach(l => { need(size * 0.5); doc.text(l, M + indent, y); y += size * 0.45; }); y += 1.5; };
+  const row2 = (a, b, c) => { need(6); doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(40); const la = doc.splitTextToSize(clean(a), CW * 0.66); doc.text(la, M + 3, y); doc.setFont("helvetica", "bold"); doc.setTextColor(...c); doc.text(clean(b), W - M - 2, y, { align: "right" }); const hh = la.length * 4.4; doc.setDrawColor(230); doc.setLineWidth(0.2); doc.line(M, y + hh - 2.6, W - M, y + hh - 2.6); y += hh + 1.2; };
+
+  // Cover
+  doc.setFillColor(10, 10, 11); doc.rect(0, 0, W, H, "F");
+  try { doc.addImage(logo, "PNG", W / 2 - 38, 62, 76, 25.5); } catch (e) {}
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.8); doc.line(W / 2 - 10, 104, W / 2 + 10, 104);
+  doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(...GOLD); doc.text("G U Í A   N U T R I C I O N A L", W / 2, 114, { align: "center" });
+  doc.setFontSize(34); doc.setTextColor(255); doc.text("APRENDE A", W / 2, 134, { align: "center" }); doc.setTextColor(...GOLD); doc.text("COMER MEJOR", W / 2, 148, { align: "center" });
+  doc.setFont("helvetica", "normal"); doc.setFontSize(11); doc.setTextColor(200);
+  if (name) { doc.text("Guía personalizada de " + clean(name), W / 2, 166, { align: "center" }); }
+  doc.setFontSize(9); doc.setTextColor(150); doc.text("Equivalentes basados en el SMAE, 5.ª edición", W / 2, name ? 174 : 166, { align: "center" });
+  doc.setFontSize(8); doc.setTextColor(120); doc.text("OSCAR GARCÍA · NUTRICIÓN DEPORTIVA", W / 2, H - 18, { align: "center" });
+
+  // Page: how + plate
+  newPage();
+  h2("Cómo comer mejor en 3 pasos");
+  para("1. Qué es un equivalente: una cantidad fija de un alimento. Dentro de un mismo grupo, todos aportan casi lo mismo, por eso puedes cambiar uno por otro. Ejemplo: 1 tortilla de maíz = 1/2 taza de arroz = 1/3 taza de avena.");
+  para("2. Arma tu plato: en comida y cena, la mitad del plato con verduras, un cuarto con alimento de origen animal y un cuarto con cereal o leguminosa, más una porción de aceite o grasa. Acompaña con agua natural.");
+  para("3. Sigue tu día: haz 5 tiempos de comida con los equivalentes de la tabla de abajo.");
+  y += 2;
+  para("Medidas con tu mano (aproximadas): puño = 1 taza · mano ahuecada = 1/2 taza · palma = 90 g de carne o pollo cocido (3 equivalentes) · pulgar = 1 cucharada; la punta = 1 cucharadita.", 9.5, 90, "italic");
+  const plate = ["V", "P", "C", "G"].map(z => chosen[z]).filter(Boolean);
+  if (plate.length === 4) { y += 2; para(`Tu plato armado: ${chosen.V} + ${chosen.P} + ${chosen.C} + ${chosen.G}.`, 10, 40, "bold"); }
+
+  // Daily table
+  y += 4; h2("Tus equivalentes del día");
+  const cols = ["Grupo", ...MEALS.map(m => m.n), "Total"]; const cw = [44, 22, 22, 22, 22, 22, 0]; cw[6] = CW - cw.slice(0, 6).reduce((a, b) => a + b, 0);
+  need(8); doc.setFillColor(17, 17, 17); doc.rect(M, y - 4.5, CW, 7, "F"); doc.setFont("helvetica", "bold"); doc.setFontSize(8); doc.setTextColor(255);
+  let x = M; cols.forEach((c, i) => { doc.text(c, i ? x + cw[i] / 2 : x + 2, y, { align: i ? "center" : "left" }); x += cw[i]; }); y += 7;
+  ORDER.forEach((k, r) => { need(7); if (r % 2) { doc.setFillColor(246, 244, 239); doc.rect(M, y - 4.5, CW, 7, "F"); } x = M; doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(...RGB[k]); doc.text(G[k].n, x + 2, y); x += cw[0];
+    doc.setFont("helvetica", "normal"); doc.setTextColor(50); MEALS.forEach((m, i) => { doc.text(String(m.p[k] || "–"), x + cw[i + 1] / 2, y, { align: "center" }); x += cw[i + 1]; });
+    doc.setFont("helvetica", "bold"); doc.setTextColor(17); doc.text(String(TOTAL[k]), x + cw[6] / 2, y, { align: "center" }); y += 7; });
+  y += 2; para("Referencia para un adulto con actividad ligera a moderada. Tu nutriólogo ajusta estas cantidades en tu valoración.", 8.5, 120, "italic");
+
+  // Menu
+  y += 3; h2("Tu menú");
+  MEALS.forEach((m, i) => { const [nm, d] = m.o[optSel[i]]; need(18); doc.setFont("helvetica", "bold"); doc.setFontSize(10.5); doc.setTextColor(...GOLD); doc.text(`${m.n.toUpperCase()} · ${m.t}`, M, y); y += 5;
+    doc.setTextColor(17); doc.setFontSize(10.5); doc.text(clean(nm), M, y); y += 4.8; para(d, 9.5, 60);
+    para("Equivalentes: " + ORDER.filter(k => m.p[k]).map(k => `${m.p[k]} ${G[k].n.toLowerCase()}`).join(" · "), 8.5, 130, "italic"); y += 1.5; });
+  para("Puedes cambiar cualquier alimento por otro del mismo grupo usando la lista de equivalentes.", 9, 90, "italic");
+
+  // Equivalents
+  newPage(); h2("Lista de equivalentes (SMAE)");
+  para("1 equivalente de cada alimento. Cambia solo dentro del mismo grupo y, de preferencia, del mismo subgrupo.", 9.5, 90);
+  GROUPS.forEach(g => { need(16); y += 2; doc.setFillColor(...RGB[g.k]); doc.rect(M, y - 5, CW, 7.5, "F"); doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(255); doc.text(g.n.toUpperCase(), M + 3, y); y += 7;
+    g.s.forEach(sg => { if (g.s.length > 1 || sg.n !== g.n) { need(12); doc.setFont("helvetica", "bold"); doc.setFontSize(9.5); doc.setTextColor(...RGB[g.k]); doc.text(clean(sg.n), M, y); y += 4; }
+      doc.setFont("helvetica", "italic"); doc.setFontSize(8); doc.setTextColor(130); need(5); doc.text(clean(sg.info), M, y); y += 5;
+      sg.f.forEach(([a, b]) => row2(a, b, RGB[g.k])); y += 2; }); });
+
+  // Habits + shop
+  newPage(); h2("Tus hábitos");
+  HABITS.forEach(([t, d], i) => { const on = hab.includes(i); need(10); doc.setDrawColor(...(on ? [63, 160, 96] : [170, 170, 170])); doc.setLineWidth(0.5); if (on) { doc.setFillColor(63, 160, 96); doc.rect(M, y - 3.4, 4, 4, "FD"); } else doc.rect(M, y - 3.4, 4, 4, "S");
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(17); doc.text(clean(t), M + 7, y); doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(90); const l = doc.splitTextToSize(clean(d), CW - 7); doc.text(l, M + 7, y + 4.3); y += 5 + l.length * 4.2; });
+  para(`Ya haces ${hab.length} de 10 hábitos. Elige 2 o 3 nuevos para esta semana.`, 9.5, 60, "italic");
+  y += 4; h2("Lista del súper");
+  ORDER.forEach(k => { const items = SHOP[k].filter(x => !shop.includes(x)); if (!items.length) return; need(12); doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(...RGB[k]); doc.text(G[k].n, M, y); y += 5;
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(50); let xx = M; items.forEach(it => { const w = doc.getTextWidth(it) + 11; if (xx + w > W - M) { xx = M; y += 6; need(6); } doc.setDrawColor(160); doc.rect(xx, y - 3.2, 3.6, 3.6, "S"); doc.text(it, xx + 5.5, y); xx += w; }); y += 8; });
+
+  // Closing
+  y += 2; need(40); doc.setFillColor(12, 12, 13); doc.roundedRect(M, y, CW, 34, 3, 3, "F");
+  doc.setFont("helvetica", "bold"); doc.setFontSize(14); doc.setTextColor(...GOLD); doc.text("TU PLAN, A TU MEDIDA", W / 2, y + 11, { align: "center" });
+  doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); doc.setTextColor(200); doc.text(doc.splitTextToSize("Esta guía es una orientación general. No sustituye una valoración nutricional ni un plan personalizado. Para ajustar tus equivalentes a tu cuerpo, tu actividad y tus objetivos, agenda tu valoración.", CW - 20), W / 2, y + 18, { align: "center" });
+  foot();
+  return doc.output("blob");
+}
+
+let downloads = null;
+(async () => {
+  try { downloads = await window.claude?.use?.("downloads"); } catch (e) { downloads = null; }
+  if (!downloads && window.claude) document.getElementById("pdfMsg").textContent = "Si la descarga no funciona en tu teléfono, pídele a tu nutriólogo tu guía en PDF.";
+})();
+document.getElementById("pdfBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("pdfBtn"), msg = document.getElementById("pdfMsg");
+  if (!window.jspdf) { msg.textContent = "No se pudo cargar el generador de PDF. Revisa tu conexión y recarga la página."; return; }
+  if (!downloads && window.claude) { msg.textContent = "La descarga no está disponible con este link. Pídele a tu nutriólogo tu guía en PDF."; return; }
+  btn.disabled = true; msg.textContent = "Preparando tu PDF…";
+  try {
+    const name = document.getElementById("pname").value.trim();
+    const blob = buildPdf(name);
+    const fname = "Guia-Nutricional-OG" + (name ? "-" + name.replace(/[^\p{L}\p{N} ]/gu, "").replace(/\s+/g, "-") : "") + ".pdf";
+    if (downloads) await downloads.save({ filename: fname, data: blob });
+    else { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = fname; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000); }
+    msg.textContent = "¡Listo! Tu guía se descargó.";
+  } catch (e) {
+    const c = e && e.code;
+    msg.textContent = c === "declined" ? "Cancelaste la descarga. Puedes intentarlo de nuevo cuando quieras." : c === "rate_limited" ? "Espera unos segundos e inténtalo de nuevo." : "No se pudo descargar el PDF. Inténtalo de nuevo.";
+  } finally { btn.disabled = false; }
+});
+</script>
+</body>
+</html>
